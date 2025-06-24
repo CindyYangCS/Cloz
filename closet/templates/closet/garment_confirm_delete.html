@@ -1,0 +1,19 @@
+{% extends "blog/base.html"%}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Garment</legend>
+                <h2>Are you sure you want to delete the garment "{{ object.name }}"</h2>
+                {% if garment.photo %}
+                    <img src="{{ garment.photo.url }}" alt="{{ garment.name }}" style="max-width: 200px;"><br>
+                {% endif %}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+                <a class="btn btn-outline-secondary" href="{% url 'user-garments' object.user.username %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

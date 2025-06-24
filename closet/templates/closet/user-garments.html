@@ -15,7 +15,9 @@
           {% if garment.date_purchased %}
             Purchased on: {{ garment.date_purchased|date:"F j, Y" }}<br>
           {% endif %}
-          Thrifted: {{ garment.thrifted|yesno:"Yes,No" }}
+          Thrifted: {{ garment.thrifted|yesno:"Yes,No" }}<br>
+          <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'garment-update' garment.pk %}">Update</a>
+          <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'garment-delete' garment.pk %}">Delete</a>
         </li>
         <hr>
       {% endfor %}
