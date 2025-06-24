@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+  <h2>{{ view.kwargs.username }}'s Closet</h2>
+
+  {% if garments %}
+    <ul>
+      {% for garment in garments %}
+        <li>
+          <strong>{{ garment.name }}</strong> - {{ garment.brand }}<br>
+          Type: {{ garment.get_type_display }}<br>
+          {% if garment.photo %}
+            <img src="{{ garment.photo.url }}" alt="{{ garment.name }}" style="max-width: 200px;"><br>
+          {% endif %}
+          {% if garment.date_purchased %}
+            Purchased on: {{ garment.date_purchased|date:"F j, Y" }}<br>
+          {% endif %}
+          Thrifted: {{ garment.thrifted|yesno:"Yes,No" }}
+        </li>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No garments found.</p>
+  {% endif %}
+{% endblock %}
