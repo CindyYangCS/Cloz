@@ -1,7 +1,15 @@
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
   <h2>{{ view.kwargs.username }}'s Closet</h2>
+
+  <form method="get" class="form-inline mb-3">
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+      {{ filter.form|crispy }}
+      <button class="btn btn-sm btn-primary" type="submit">Search</button>
+    </div>
+  </form>
 
   {% if garments %}
     <ul>

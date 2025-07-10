@@ -4,13 +4,15 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django_filters.views import FilterView
+from .filters import GarmentFilter
 
 # Create your views here.
-class UserGarmentListView(ListView):
+class UserGarmentListView(LoginRequiredMixin, FilterView):
     model = Garment
-    template_name = 'closet/user-garments.html'
+    template_name = 'closet/user_garments.html'
     context_object_name = 'garments'
-    ordering = ['brand']
+    filterset_class = GarmentFilter
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
