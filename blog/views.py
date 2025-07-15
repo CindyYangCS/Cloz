@@ -32,6 +32,7 @@ class PostDetailView(DetailView):
         post = self.get_object()
         context['comments'] = post.comments.all().order_by('-comment_date')
         context['form'] = CommentForm()
+        context['likes'] = post.total_likes()
         return context
     
     def post(self, request, *args, **kwargs):
@@ -78,6 +79,11 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+    
+def LikeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return redirect('post-detail', pk=post.pk)
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})

@@ -11,6 +11,11 @@
             <div>
                 <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
                 <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+                <form action="{% url 'like-post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary
+                    btn-sm">Like</button> <br> {{ likes }} Like{{ likes|pluralize }}
+                </form>
             </div>
             {% endif %}
         </div>
@@ -20,6 +25,7 @@
             <img class="image" src="{{ post.image.url }}" style="max-width: 600px; width: 50%; height: auto;">
         {% endif %}
         </div>
+        
         <h4>Comments</h4>
         <ul style="list-style: none;">
             <li>

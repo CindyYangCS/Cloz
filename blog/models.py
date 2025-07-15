@@ -9,6 +9,10 @@ class Post(models.Model):
     image = models.ImageField(upload_to='post_images', blank=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='posts')
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
@@ -21,7 +25,3 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     comment_date = models.DateTimeField(default=timezone.now)
-
-class Like(models.Model):
-    post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
