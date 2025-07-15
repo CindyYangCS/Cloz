@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_filters',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'closet.apps.ClosetConfig',
